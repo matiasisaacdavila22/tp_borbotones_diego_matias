@@ -1,0 +1,31 @@
+#contenedor2 {
+   display: flex;
+   align-items: flex-end;
+   justify-content:space-around;
+   /* border: 5px solid darkblue; */
+   height: 850px;
+
+}
+
+#lista {
+  align-self: center;
+  /* border: 5px solid darkblue; */
+  width: 1050px;
+  height: 650px;
+
+
+}
+#mapid {
+  align-self: center;
+  border: 1px solid darkblue;
+  width: 550px;
+  height: 550px;
+
+}
+#searchTaller {
+margin-left: 750px;
+
+}
+.tr:hover {
+  background-color: blue;
+}

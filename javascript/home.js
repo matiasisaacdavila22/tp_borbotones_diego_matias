@@ -14,7 +14,7 @@ $(document).ready(function() {
       $("#logout").hide();
       $("#config").hide();
       $("#pago").hide();
-      $("#taller").hide();
+      $("#taller").show();
       $("#obras").hide();
         }
 
@@ -39,6 +39,10 @@ $("#obras").click( function() {
 $("#ingresar").click( function() {
         alert('fadsfsdfs');
     });
+
+$("#taller").click( function() {
+            location.href ="../views/talleres/view.html";
+        });
 
 });
 function salir() {
