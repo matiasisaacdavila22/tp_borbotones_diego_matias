@@ -195,7 +195,33 @@ function createObras(id, name, autor, description, anio, estilo, tecnica, list, 
       id = misObras.length +1;
       }
     return id;
-  }
+  }       
+  function searchObrasName(name){
+    misObras = getObras();
+    if(name.length == 0){
+      return misObras;
+    }else{
+    var busquedaObras = [];
+      for(let i = 0; i < misObras.length; i++){
+        if(misObras[i].name.toLowerCase()  == name.toLowerCase() ||
+           misObras[i].autor.toLowerCase() == name.toLowerCase()
+           /*misObras[i].list3.toLowerCase() == name.toLowerCase()*/) {
+              busquedaObras.push(misObras[i]);
+             }
+        else{
+          if(name.toLowerCase() == 'en venta' &&
+          misObras[i].list3.toLowerCase() == 1 ){
+            busquedaObras.push(misObras[i]);
+          }
+          if(name.toLowerCase() == 'en exhibicion' &&
+          misObras[i].list3.toLowerCase() != 1 ){
+            busquedaObras.push(misObras[i]);
+          }
+        }
+          }
+            return busquedaObras;
+      }
+    }
 
   function searchObrasLocalStore(id){
       misObras = getObras();
@@ -207,20 +233,20 @@ function createObras(id, name, autor, description, anio, estilo, tecnica, list, 
        return null;
     }
 
-    function searchObrasName(name){
-      misObras = getObras();
-      if(name.length == 0){
-        return misObras;
-      }else{
-      var busquedaObras = [];
-        for(let i = 0; i < misObras.length; i++){
-          if(misObras[i].name == name){
-                busquedaObras.push(misObras[i]);
-               }
-            }
-              return busquedaObras;
-        }
-      }
+    // function searchObrasName(name){
+    //   misObras = getObras();
+    //   if(name.length == 0){
+    //     return misObras;
+    //   }else{
+    //   var busquedaObras = [];
+    //     for(let i = 0; i < misObras.length; i++){
+    //       if(misObras[i].name == name){
+    //             busquedaObras.push(misObras[i]);
+    //            }
+    //         }
+    //           return busquedaObras;
+    //     }
+    //   }
 
     function editarObra(id, obra){
       misObras = getObras();
