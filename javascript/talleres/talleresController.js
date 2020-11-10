@@ -7,7 +7,9 @@
     ];
 
 
-    function Taller(name, description, activities, time, phone, direccionNormalizada){
+
+    function Taller(id, name, description, activities, time, phone, direccionNormalizada){
+        this.id = id;
         this.name = name;
         this.description = description;
         this.activities = activities;
@@ -57,13 +59,16 @@
     }
 
     function crearTallerRandom() {
+        const artes = ["pintura", "escultura", "literatura", "musica", "danza", "arquitectura", "cine"];
         var rand = numeroRandom(0, 50);
         var x = (Math.random() * (-34.5221554 +34.5251554 ) -34.5251554 ).toFixed(8);
-        var y = (Math.random() * (-58.7000067 +58.9000067) -58.9000067).toFixed(8);
+        var y = (Math.random() * (-58.7000067 +58.7200067) -58.7200067).toFixed(8);
+        var arte = artes[Math.floor(Math.random() * artes.length)];
         return new Taller(
-            "Taller " + rand,                                                           //nombre
+             rand,
+            "taller " + rand,                                                           //nombre
             "Soy la descripcion del taller numero " + rand,                             //descripcion
-            "Actividades del taller " + rand,                                           //actividades
+            arte,                                           //actividades
             "Todavia no sabemos en que horario damos clases en el taller " + rand,      //horarios
             rand,                                                                       //telefono
             new DireccionNormalizada(                                                   //direccion normalizada
@@ -93,8 +98,7 @@
     localStoregeTalleresList(misTalleres);
   }
 
-  function getTalleres(){
-
+  function getTalleres(parametro){
     var talleresList = localStorage.getItem('localTalleresList');
     if(talleresList == null){
       misTalleres = listTalleres;
@@ -107,8 +111,8 @@
           localStorage.setItem('localTalleresList', JSON.stringify(list));
   }
 
-  function searchObrasLocalStore(id){
-      misTalleres = getTallers();
+  function searchTallerLocalStore(id){
+      misTalleres = getTalleres();
     for(let i = 0; i < misTalleres.length; i++){
       if(misTalleres[i].id == id){
             return misTalleres[i];
@@ -120,11 +124,11 @@
     function searchTallerName(name){
       misTalleres = getTalleres();
       if(name.length == 0){
-        return null;
+        return misTalleres;
       }else{
       var busquedaTalleres = [];
         for(let i = 0; i < misTalleres.length; i++){
-          if(misTalleres[i].name == name){
+          if(misTalleres[i].name == name || misTalleres[i].activities == name){
                 busquedaTalleres.push(misTalleres[i]);
                }
             }

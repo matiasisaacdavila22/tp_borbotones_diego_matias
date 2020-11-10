@@ -23,13 +23,19 @@ $("#obras").click( function() {
 
   mostrarTalleres();
 
+
 });
 
-    function mostrarTalleres(){
-      var talleres = getTalleres();
+    function mostrarTalleres(listTalleres){
+      var talleres = [];
+      if(listTalleres == undefined){
+           talleres = getTalleres();
+      }else{
+          talleres = listTalleres;
+      }
 
       if(talleres.length > 0){
-        contenido.innerHTML = '';
+          contenido.innerHTML = '';
 
         for(let valor of talleres){
 
@@ -41,16 +47,17 @@ $("#obras").click( function() {
              var x = valor.direccionNormalizada.coordenadas.x;
              var y = valor.direccionNormalizada.coordenadas.y;
              var nombre = valor.name;
-
+            var idTaller = valor.id;
+            mostrarTaller(idTaller);
             text.style.display = "none";
             contenido.innerHTML +=`
-            <tr>
-                <td><label id='name'>${nombre}</label></td>
+            <tr id="${idTaller}">
+                <td ><label id='name'>${nombre}</label></td>
                 <td><label id="nameAutor">${valor.activities}</label></td>
                 <td><label id="type">${direccion}</label></td>
                 <td><label id="type">${valor.phone}</label></td>
                 <td>
-                <button type="" class="btn btn-success btn-sm" onclick="mostrarTaller(${x}, ${y})" >Ubicacion</button>
+                <button type="" class="btn btn-success btn-sm" onclick="mostrarTaller(${idTaller})" >Ubicacion</button>
                 </td>
             </tr>
             `
@@ -60,12 +67,31 @@ $("#obras").click( function() {
           }
     }
     function buscarTaller(){
+      removerTalleres();
       var name = $("#texto").val();
          var buscarTaller = searchTallerName(name);
          if(buscarTaller != null){
-          var x = buscarTaller[0].direccionNormalizada.coordenadas.x;
-          var y = buscarTaller[0].direccionNormalizada.coordenadas.y;
-            mostrarTaller(x, y);
+           mostrarTalleres(buscarTaller);
          }
 
     }
+
+function pintar(id) {
+   document.getElementById(id).style.backgroundColor='#20c997';
+}
+function despintar(id) {
+  document.getElementById(id).style.backgroundColor="#fff";
+}
+
+function resaltar(id){
+var MyTable = document.getElementById('tableTalleres');
+var rows = MyTable.getElementsByTagName('tr');
+for (var i = 0; i < rows.length; i++) {
+    var aux = rows[i+1];
+    if(aux.id == id){
+      pintar(id);
+}else{
+      despintar(aux.id);
+}
+}
+}

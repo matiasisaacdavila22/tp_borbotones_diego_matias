@@ -5,13 +5,29 @@
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  function mostrarTaller(x, y){
+var mapMarkers = [];
+
+  function mostrarTaller(id){
+    var taller = searchTallerLocalStore(id);
+    var x = taller.direccionNormalizada.coordenadas.x;
+    var y = taller.direccionNormalizada.coordenadas.y;
     var x1 = parseFloat(x);
     var y1 = parseFloat(y);
-    var location = [x1, y1];
+    var location = [x, y];
           var marker = L.marker(location).addTo(map)
-          .bindPopup("taller")
+          .bindPopup(taller.name)
           .openPopup();
            map.panTo(location);
 
+           marker.on("click", function (event) {
+               var clickedMarker = event.layer;
+                resaltar(taller.id)
+                 });
+     this.mapMarkers.push(marker);
     }
+    
+function removerTalleres(){
+  for(var i = 0; i < this.mapMarkers.length; i++){
+      this.map.removeLayer(this.mapMarkers[i]);
+  }
+}
